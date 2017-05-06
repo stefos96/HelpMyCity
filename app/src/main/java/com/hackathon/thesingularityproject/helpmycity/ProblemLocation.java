@@ -29,7 +29,8 @@ public class ProblemLocation extends FragmentActivity implements OnMapReadyCallb
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_problem_location);
-        pridClick = getIntent().getExtras().toString();
+        Bundle extras = getIntent().getExtras();
+        pridClick = extras.getString("prid");
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
