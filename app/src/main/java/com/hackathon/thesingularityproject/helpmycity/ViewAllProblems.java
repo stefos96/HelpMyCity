@@ -6,9 +6,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -33,7 +30,7 @@ public class ViewAllProblems extends ListActivity implements View.OnClickListene
     JSONParser jParser = new JSONParser();
     ArrayList<HashMap<String, String>> problemsList;
     // url to get all problems list
-    private static String url = "http://trojanzaro.hopto.org/phpfiles/getallproblems.php";
+    private static String url = "http://localhost/phpfiles/db_getallproblems.php";
     // problems JSONArray
     JSONArray problems = null;
 
@@ -49,7 +46,7 @@ public class ViewAllProblems extends ListActivity implements View.OnClickListene
         problemsList = new ArrayList<HashMap<String, String>>();
 
         // Loading problems in Background Thread
-        new LoadAllProducts().execute();
+        new LoadAllProblems().execute();
 
         // Get listview
         ListView lv = getListView();
@@ -59,11 +56,10 @@ public class ViewAllProblems extends ListActivity implements View.OnClickListene
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+            {
                 // getting values from selected ListItem
-                String pid = ((TextView) view.findViewById(R.id.prid)).getText()
-                        .toString();
+                String pid = ((TextView) view.findViewById(R.id.prdescription)).getText().toString();
 
                 // Starting new intent
                 //Intent in = new Intent(getApplicationContext(), EditProductActivity.class);
@@ -101,7 +97,7 @@ public class ViewAllProblems extends ListActivity implements View.OnClickListene
         }
 
 
-    class LoadAllProducts extends AsyncTask<String, String, String> {
+    class LoadAllProblems extends AsyncTask<String, String, String> {
 
         /**
          * Before starting background thread Show Progress Dialog
@@ -124,10 +120,6 @@ public class ViewAllProblems extends ListActivity implements View.OnClickListene
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             // getting JSON string from URL
             JSONObject json = jParser.makeHttpRequest(url, "GET", params);
-
-            // Check your log cat for JSON reponse
-            Log.d("All Products: ", json.toString());
-
             try {
                     problems = json.getJSONArray("problems");
 
@@ -136,12 +128,12 @@ public class ViewAllProblems extends ListActivity implements View.OnClickListene
                         JSONObject c = problems.getJSONObject(i);
 
                         // Storing each json item in variable
-                        String id = c.getString("prid");
+                        String prdescription = c.getString("prdescription");
                         String name = c.getString("name");
                         // creating new HashMap
                         HashMap<String, String> map = new HashMap<String, String>();
                         // adding each child node to HashMap key => value
-                        map.put("prid", id);
+                        map.put("prdescription", prdescription);
                         map.put("name", name);
 
                         // adding HashList to ArrayList
@@ -166,7 +158,7 @@ public class ViewAllProblems extends ListActivity implements View.OnClickListene
                     /**
                      * Updating parsed JSON data into ListView
                      * */
-                    ListAdapter adapter = new SimpleAdapter(ViewAllProblems.this, problemsList, R.layout.list_item, new String[] { "prid", "name"}, new int[] { R.id.prid, R.id.prdescription});
+                    ListAdapter adapter = new SimpleAdapter(ViewAllProblems.this, problemsList, R.layout.list_item, new String[] { "prdescription", "name"}, new int[] { R.id.prdescription, R.id.name});
                     // updating listview
                     setListAdapter(adapter);
                 }

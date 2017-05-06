@@ -4,16 +4,22 @@
     android:layout_height="wrap_content"
     android:orientation="vertical" >
 
-    <!-- Product id (pid) - will be HIDDEN - used to pass to other activity -->
     <TextView
         android:id="@+id/prid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/prdescription"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone" />
+        />
 
     <!-- Name Label -->
     <TextView
-        android:id="@+id/prdescription"
+        android:id="@+id/name"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:paddingTop="6dip"
