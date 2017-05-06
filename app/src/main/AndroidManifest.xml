@@ -37,14 +37,15 @@
 
         <activity
             android:name=".ProblemLocation"
-            android:label="@string/title_activity_problem_location" />
+            android:label="Problem Locations" />
         <activity
             android:name=".AddProblemLocation"
-            android:label="@string/title_activity_add_problem_location" />
+            android:label="Add Problem Location" />
+
         <activity android:name=".AddNewProblem" />
         <activity
             android:name=".ViewAllProblems"
-            android:label="@string/title_activity_view_all_problems"
+            android:label="View All Problems"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
     <uses-permission android:name="android.permission.INTERNET"/>

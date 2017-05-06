@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
@@ -129,12 +128,12 @@ public class ViewAllProblems extends ListActivity implements View.OnClickListene
 
                         // Storing each json item in variable
                         String title = c.getString("title");
-                        String date = c.getString("date");
+                        String report_date = c.getString("report_date");
                         // creating new HashMap
                         HashMap<String, String> map = new HashMap<String, String>();
                         // adding each child node to HashMap key => value
                         map.put("title", title);
-                        map.put("date", date);
+                        map.put("report_date", report_date);
 
                         // adding HashList to ArrayList
                         problemsList.add(map);
@@ -158,7 +157,7 @@ public class ViewAllProblems extends ListActivity implements View.OnClickListene
                     /**
                      * Updating parsed JSON data into ListView
                      * */
-                    ListAdapter adapter = new SimpleAdapter(ViewAllProblems.this, problemsList, R.layout.list_item, new String[] { "title", "date"}, new int[] { R.id.title, R.id.date});
+                    ListAdapter adapter = new SimpleAdapter(ViewAllProblems.this, problemsList, R.layout.list_item, new String[] { "title", "report_date"}, new int[] { R.id.title, R.id.report_date});
                     // updating listview
                     setListAdapter(adapter);
                 }
