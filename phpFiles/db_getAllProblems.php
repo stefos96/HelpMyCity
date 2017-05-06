@@ -14,7 +14,7 @@ if($prid == "") //Checking if the GET request was sent in empty, in which case r
 		$problem["prid"] = $row["prid"];                    //into array to run in the function json_encode()
 		$problem["name"] = $row["name"];					   //that will print the database as JSONObject
 		$problem["lastname"] = $row["lastname"];
-		$problem["description"] = $row["description"];
+		$problem["prdescription"] = $row["prdescription"];
 		array_push($response["problems"], $problem);
 	}
 	echo json_encode($response);						//echo ojects as JSONObject: {"problems"[{"prid":"12", "name":"Kostas", ...}]}
@@ -27,7 +27,7 @@ else  //if the prid was not empty we must return the problem with the current pr
 	$problem["prid"] = $row["prid"];                    //into array to run in the function json_encode()
 	$problem["name"] = $row["name"];					   //that will print the database as JSONObject
 	$problem["lastname"] = $row["lastname"];
-	$problem["description"] = $row["description"];
+	$problem["prdescription"] = $row["prdescription"];
 	array_push($response["problems"], $problem);
 	echo json_encode($response);						//echo oject as JSONObject: {"prid":"12", "name":"Kostas", ...}	
 }
