@@ -30,7 +30,7 @@ public class ViewAllProblems extends ListActivity implements View.OnClickListene
     JSONParser jParser = new JSONParser();
     ArrayList<HashMap<String, String>> problemsList;
     // url to get all problems list
-    private static String url = "http://localhost/phpfiles/db_getallproblems.php";
+    private static String url = "http://lekadramas.com/hackathon/db_getallproblems.php";
     // problems JSONArray
     JSONArray problems = null;
 
@@ -62,12 +62,12 @@ public class ViewAllProblems extends ListActivity implements View.OnClickListene
                 String pid = ((TextView) view.findViewById(R.id.prdescription)).getText().toString();
 
                 // Starting new intent
-                //Intent in = new Intent(getApplicationContext(), EditProductActivity.class);
+                Intent in = new Intent(getApplicationContext(), ProblemLocation.class);
                 // sending pid to next activity
-                //in.putExtra("prid", pid);
+                in.putExtra("prid", pid);
 
                 // starting new activity and expecting some response back
-                //startActivityForResult(in, 100);
+                startActivityForResult(in, 100);
             }
         });
 
@@ -119,7 +119,7 @@ public class ViewAllProblems extends ListActivity implements View.OnClickListene
             // Building Parameters
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             // getting JSON string from URL
-            JSONObject json = jParser.makeHttpRequest(url, "GET", params);
+            JSONObject json = jParser.makeHttpRequest(url, "", params);
             try {
                     problems = json.getJSONArray("problems");
 
