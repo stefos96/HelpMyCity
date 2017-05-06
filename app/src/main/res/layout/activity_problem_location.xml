@@ -1,8 +1,76 @@
-<fragment xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:map="http://schemas.android.com/apk/res-auto"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/map"
-    android:name="com.google.android.gms.maps.SupportMapFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.hackathon.thesingularityproject.helpmycity.ProblemLocation" />
+    tools:context="com.hackathon.thesingularityproject.helpmycity.MainActivity">
+
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:map="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginTop="0dp"
+        map:layout_constraintHorizontal_bias="0.0"
+        map:layout_constraintLeft_toLeftOf="parent"
+        map:layout_constraintRight_toRightOf="parent"
+        map:layout_constraintTop_toTopOf="parent"
+        tools:context="com.hackathon.thesingularityproject.helpmycity.ProblemLocation" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16p"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="176dp"
+        tools:layout_editor_absoluteY="360dp" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16p"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="360dp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Name: "
+        android:textStyle="italic"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="326dp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16p"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="428dp" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Date added: "
+        android:textStyle="italic"
+        tools:layout_editor_absoluteX="176dp"
+        tools:layout_editor_absoluteY="326dp" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Description: "
+        android:textStyle="italic"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="397dp" />
+
+</android.support.constraint.ConstraintLayout>
