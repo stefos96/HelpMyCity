@@ -12,7 +12,7 @@
         android:text="TextView" />
 
     <TextView
-        android:id="@+id/prdescription"
+        android:id="@+id/title"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textStyle="bold"
@@ -20,7 +20,7 @@
 
     <!-- Name Label -->
     <TextView
-        android:id="@+id/name"
+        android:id="@+id/date"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:paddingTop="6dip"

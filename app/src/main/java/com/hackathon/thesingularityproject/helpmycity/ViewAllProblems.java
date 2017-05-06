@@ -59,12 +59,12 @@ public class ViewAllProblems extends ListActivity implements View.OnClickListene
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
                 // getting values from selected ListItem
-                String pid = ((TextView) view.findViewById(R.id.prdescription)).getText().toString();
+                String prid = ((TextView) view.findViewById(R.id.prid)).getText().toString();
 
                 // Starting new intent
                 Intent in = new Intent(getApplicationContext(), ProblemLocation.class);
                 // sending pid to next activity
-                in.putExtra("prid", pid);
+                in.putExtra("prid", prid);
 
                 // starting new activity and expecting some response back
                 startActivityForResult(in, 100);
@@ -128,13 +128,13 @@ public class ViewAllProblems extends ListActivity implements View.OnClickListene
                         JSONObject c = problems.getJSONObject(i);
 
                         // Storing each json item in variable
-                        String prdescription = c.getString("prdescription");
-                        String name = c.getString("name");
+                        String title = c.getString("title");
+                        String date = c.getString("date");
                         // creating new HashMap
                         HashMap<String, String> map = new HashMap<String, String>();
                         // adding each child node to HashMap key => value
-                        map.put("prdescription", prdescription);
-                        map.put("name", name);
+                        map.put("title", title);
+                        map.put("date", date);
 
                         // adding HashList to ArrayList
                         problemsList.add(map);
@@ -158,7 +158,7 @@ public class ViewAllProblems extends ListActivity implements View.OnClickListene
                     /**
                      * Updating parsed JSON data into ListView
                      * */
-                    ListAdapter adapter = new SimpleAdapter(ViewAllProblems.this, problemsList, R.layout.list_item, new String[] { "prdescription", "name"}, new int[] { R.id.prdescription, R.id.name});
+                    ListAdapter adapter = new SimpleAdapter(ViewAllProblems.this, problemsList, R.layout.list_item, new String[] { "title", "date"}, new int[] { R.id.title, R.id.date});
                     // updating listview
                     setListAdapter(adapter);
                 }
