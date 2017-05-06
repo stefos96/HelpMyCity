@@ -15,6 +15,7 @@
         android:id="@+id/prdescription"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:textStyle="bold"
         />
 
     <!-- Name Label -->
@@ -25,6 +26,6 @@
         android:paddingTop="6dip"
         android:paddingLeft="6dip"
         android:textSize="17dip"
-        android:textStyle="bold" />
+        />
 
 </LinearLayout>
