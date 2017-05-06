@@ -2,6 +2,8 @@ package com.hackathon.thesingularityproject.helpmycity;
 
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -10,9 +12,13 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class AddProblemLocation extends FragmentActivity implements OnMapReadyCallback {
+public class AddProblemLocation extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMapClickListener, View.OnClickListener {
 
     private GoogleMap mMap;
+    Button button1;
+    // Location
+    private double latitude;
+    private double longitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,10 +43,28 @@ public class AddProblemLocation extends FragmentActivity implements OnMapReadyCa
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        button1 = (Button) findViewById(R.id.button1);
+        button1.setOnClickListener(this);
+        mMap.setOnMapClickListener(this);
+        googleMap.getUiSettings().setZoomGesturesEnabled(true);
+        // Add a marker in Serres and move the camera
+        LatLng serres = new LatLng(41.0845196, 23.5443302);
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(serres));
 
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+    }
+
+    // Set location of your problem on the map
+    @Override
+    public void onMapClick(LatLng latLng) {
+        mMap.clear();
+        mMap.addMarker(new MarkerOptions().position(latLng));
+        latitude = latLng.latitude;
+        longitude = latLng.longitude;
+    }
+
+    // Submit problem
+    @Override
+    public void onClick(View v) {
+        
     }
 }
