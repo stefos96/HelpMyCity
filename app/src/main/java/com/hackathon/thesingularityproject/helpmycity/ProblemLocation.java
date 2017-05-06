@@ -20,13 +20,16 @@ public class ProblemLocation extends FragmentActivity implements OnMapReadyCallb
 
     private GoogleMap mMap;
     private String address;
+    String pridClick;
     private double latitude = 41.087685;
     private double longitude = 23.550286;
+    JSONParser jsparse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_problem_location);
+        pridClick = getIntent().getExtras().toString();
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -39,7 +42,7 @@ public class ProblemLocation extends FragmentActivity implements OnMapReadyCallb
 
         // Add a marker to the location of the problem
         LatLng problemLocation = new LatLng(latitude, longitude);
-        mMap.addMarker(new MarkerOptions().position(problemLocation).title(address));
+        mMap.addMarker(new MarkerOptions().position(problemLocation).title(pridClick));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(problemLocation, 13));
     }
 
