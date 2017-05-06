@@ -65,6 +65,6 @@ public class AddProblemLocation extends FragmentActivity implements OnMapReadyCa
     // Submit problem
     @Override
     public void onClick(View v) {
-        
+
     }
 }

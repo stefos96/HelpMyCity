@@ -1,5 +1,8 @@
 package com.hackathon.thesingularityproject.helpmycity;
 
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
@@ -10,9 +13,17 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+
 public class ProblemLocation extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    private String address;
+    private double latitude = 41.087685;
+    private double longitude = 23.550286;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,10 +47,27 @@ public class ProblemLocation extends FragmentActivity implements OnMapReadyCallb
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+       convertLocationToAddress();
 
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        // Add a marker to the location of the problem
+        LatLng problemLocation = new LatLng(latitude, longitude);
+        mMap.addMarker(new MarkerOptions().position(problemLocation).title(address));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(problemLocation, 13));
     }
+
+
+
+    private void convertLocationToAddress(){
+        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+        List<Address> locationList;
+
+        try {
+            locationList = geocoder.getFromLocation(latitude, longitude, 1);
+            address = locationList.get(0).getAddressLine(0);
+        }
+        catch (IOException e) {
+            address = "Address not found";
+        }
+    }
+
 }
