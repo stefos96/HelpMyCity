@@ -25,6 +25,7 @@ import java.util.List;
 public class ViewAllProblems extends ListActivity implements View.OnClickListener{
 
     private ProgressDialog pDialog;
+    int pridClick;
     // Creating JSON Parser object
     JSONParser jParser = new JSONParser();
     ArrayList<HashMap<String, String>> problemsList;
@@ -58,33 +59,16 @@ public class ViewAllProblems extends ListActivity implements View.OnClickListene
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
                 // getting values from selected ListItem
-                String prid = ((TextView) view.findViewById(R.id.prid)).getText().toString();
-
+                //String prid = ((TextView)view.findViewById(R.id.prid)).getText().toString();
                 // Starting new intent
                 Intent in = new Intent(getApplicationContext(), ProblemLocation.class);
                 // sending pid to next activity
-                in.putExtra("prid", prid);
+                //in.putExtra("prid", prid);
 
                 // starting new activity and expecting some response back
                 startActivityForResult(in, 100);
             }
         });
-
-    }
-
-    // Response from Edit Product Activity
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        // if result code 100
-        if (resultCode == 100) {
-            // if result code 100 is received
-            // means user edited/deleted problem
-            // reload this screen again
-            Intent intent = getIntent();
-            finish();
-            startActivity(intent);
-        }
 
     }
 
@@ -129,12 +113,12 @@ public class ViewAllProblems extends ListActivity implements View.OnClickListene
                         // Storing each json item in variable
                         String title = c.getString("title");
                         String report_date = c.getString("report_date");
+                        String pridClick;
                         // creating new HashMap
                         HashMap<String, String> map = new HashMap<String, String>();
                         // adding each child node to HashMap key => value
                         map.put("title", title);
                         map.put("report_date", report_date);
-
                         // adding HashList to ArrayList
                         problemsList.add(map);
                     }
@@ -158,6 +142,7 @@ public class ViewAllProblems extends ListActivity implements View.OnClickListene
                      * Updating parsed JSON data into ListView
                      * */
                     ListAdapter adapter = new SimpleAdapter(ViewAllProblems.this, problemsList, R.layout.list_item, new String[] { "title", "report_date"}, new int[] { R.id.title, R.id.report_date});
+
                     // updating listview
                     setListAdapter(adapter);
                 }
