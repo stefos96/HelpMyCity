@@ -24,8 +24,7 @@ import java.util.List;
 
 public class ViewAllProblems extends ListActivity implements View.OnClickListener{
 
-    private ProgressDialog pDialog;
-    int pridClick;
+    private ProgressDialog pDialog1;
     // Creating JSON Parser object
     JSONParser jParser = new JSONParser();
     ArrayList<HashMap<String, String>> problemsList;
@@ -59,11 +58,11 @@ public class ViewAllProblems extends ListActivity implements View.OnClickListene
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
                 // getting values from selected ListItem
-                //String prid = ((TextView)view.findViewById(R.id.prid)).getText().toString();
+                String prid = ((TextView)view.findViewById(R.id.prid)).getText().toString();
                 // Starting new intent
                 Intent in = new Intent(getApplicationContext(), ProblemLocation.class);
                 // sending pid to next activity
-                //in.putExtra("prid", prid);
+                in.putExtra("prid", prid);
 
                 // starting new activity and expecting some response back
                 startActivityForResult(in, 100);
@@ -88,11 +87,11 @@ public class ViewAllProblems extends ListActivity implements View.OnClickListene
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            pDialog = new ProgressDialog(ViewAllProblems.this);
-            pDialog.setMessage("Loading Database . . .");
-            pDialog.setIndeterminate(false);
-            pDialog.setCancelable(false);
-            pDialog.show();
+            pDialog1 = new ProgressDialog(ViewAllProblems.this);
+            pDialog1.setMessage("Loading Database . . .");
+            pDialog1.setIndeterminate(false);
+            pDialog1.setCancelable(false);
+            pDialog1.show();
         }
 
         /**
@@ -102,7 +101,7 @@ public class ViewAllProblems extends ListActivity implements View.OnClickListene
             // Building Parameters
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             // getting JSON string from URL
-            JSONObject json = jParser.makeHttpRequest(url, "", params);
+            JSONObject json = jParser.makeHttpRequest(url, "GET", params);
             try {
                     problems = json.getJSONArray("problems");
 
@@ -112,13 +111,12 @@ public class ViewAllProblems extends ListActivity implements View.OnClickListene
 
                         // Storing each json item in variable
                         String title = c.getString("title");
-                        String report_date = c.getString("report_date");
-                        String pridClick;
+                        String prid = c.getString("prid");
                         // creating new HashMap
                         HashMap<String, String> map = new HashMap<String, String>();
                         // adding each child node to HashMap key => value
                         map.put("title", title);
-                        map.put("report_date", report_date);
+                        map.put("prid", prid);
                         // adding HashList to ArrayList
                         problemsList.add(map);
                     }
@@ -134,14 +132,14 @@ public class ViewAllProblems extends ListActivity implements View.OnClickListene
          * **/
         protected void onPostExecute(String file_url) {
             // dismiss the dialog after getting all problems
-            pDialog.dismiss();
+            pDialog1.dismiss();
             // updating UI from Background Thread
             runOnUiThread(new Runnable() {
                 public void run() {
                     /**
                      * Updating parsed JSON data into ListView
                      * */
-                    ListAdapter adapter = new SimpleAdapter(ViewAllProblems.this, problemsList, R.layout.list_item, new String[] { "title", "report_date"}, new int[] { R.id.title, R.id.report_date});
+                    ListAdapter adapter = new SimpleAdapter(ViewAllProblems.this, problemsList, R.layout.list_item, new String[] { "title", "prid"}, new int[] { R.id.title, R.id.prid});
 
                     // updating listview
                     setListAdapter(adapter);
