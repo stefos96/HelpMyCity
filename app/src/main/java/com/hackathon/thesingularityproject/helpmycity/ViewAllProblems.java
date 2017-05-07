@@ -96,7 +96,7 @@ public class ViewAllProblems extends ListActivity implements View.OnClickListene
                         JSONObject c = problems.getJSONObject(i);
 
                         // Storing each json item in variable
-                        String title = c.getString("title");
+                        String title = " " + c.getString("title");
                         String prid = c.getString("prid");
                         // creating new HashMap
                         HashMap<String, String> map = new HashMap<String, String>();

@@ -6,8 +6,9 @@
 
     <TextView
         android:id="@+id/title"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="54dp"
+        android:textColor="@color/cast_expanded_controller_background_color"
         android:textSize="22sp"
         android:textStyle="bold" />
 
