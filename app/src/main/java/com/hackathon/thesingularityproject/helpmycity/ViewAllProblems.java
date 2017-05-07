@@ -39,7 +39,7 @@ public class ViewAllProblems extends ListActivity implements View.OnClickListene
         fab.setOnClickListener(this);
 
         // Hashmap for ListView
-        problemsList = new ArrayList<HashMap<String, String>>();
+        problemsList = new ArrayList<>();
 
         // Loading problems in Background Thread
         new LoadAllProblems().execute();
@@ -64,9 +64,7 @@ public class ViewAllProblems extends ListActivity implements View.OnClickListene
                 startActivityForResult(in, 100);
             }
         });
-
     }
-
         @Override
         public void onClick(View v) {
             Intent AddProblem;
@@ -76,10 +74,6 @@ public class ViewAllProblems extends ListActivity implements View.OnClickListene
 
 
     class LoadAllProblems extends AsyncTask<String, String, String> {
-
-        /**
-         * Before starting background thread Show Progress Dialog
-         * */
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -89,10 +83,6 @@ public class ViewAllProblems extends ListActivity implements View.OnClickListene
             pDialog1.setCancelable(false);
             pDialog1.show();
         }
-
-        /**
-         * getting All products from url
-         * */
         protected String doInBackground(String... args) {
             // Building Parameters
             List<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -123,20 +113,13 @@ public class ViewAllProblems extends ListActivity implements View.OnClickListene
             return null;
         }
 
-        /**
-         * After completing background task Dismiss the progress dialog
-         * **/
         protected void onPostExecute(String file_url) {
             // dismiss the dialog after getting all problems
             pDialog1.dismiss();
             // updating UI from Background Thread
             runOnUiThread(new Runnable() {
                 public void run() {
-                    /**
-                     * Updating parsed JSON data into ListView
-                     * */
                     ListAdapter adapter = new SimpleAdapter(ViewAllProblems.this, problemsList, R.layout.list_item, new String[] { "title", "prid"}, new int[] { R.id.title, R.id.prid});
-
                     // updating listview
                     setListAdapter(adapter);
                 }
