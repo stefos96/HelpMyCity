@@ -30,17 +30,18 @@ public class ProblemLocation extends FragmentActivity implements OnMapReadyCallb
 
     private GoogleMap mMap;
     private String address;
-    private double latitude = 41.0836211;
-    private double longitude = 23.5387843;
-
+    private double latitude;
+    private double longitude;
+    private LatLng SERRES = new LatLng(41.0855781, 23.5402434);
     private String name;
     private String prdescription;
     private String date;
-
+    private LatLng reportedLocation;
+    private SupportMapFragment mapFragment;
     private String pridClick;
 
-    JSONParser jParser;
-    JSONArray problem;
+    JSONParser jParser = new JSONParser();
+    JSONArray problem = new JSONArray();
     String urlGetItem = "http://www.lekadramas.com/Hackathon/db_getproblem.php";
 
     private TextView nameTextView;
@@ -51,28 +52,33 @@ public class ProblemLocation extends FragmentActivity implements OnMapReadyCallb
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_problem_location);
-
+        button1 = (Button) findViewById(R.id.button2);
+        button1.setOnClickListener(this);
+        mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         Bundle extras = getIntent().getExtras();
         pridClick = extras.getString("prid");
         new LoadItem().execute();
-
-        button1 = (Button) findViewById(R.id.viewMapButton);
-        button1.setOnClickListener(this);
-
-
-
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        LatLng serres = new LatLng(latitude, longitude);
         mMap = googleMap;
-        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(serres, 16);
-        mMap.animateCamera(cameraUpdate);
-        mMap.addMarker(new MarkerOptions().position(serres));
+
+        // Convert location to real address
         convertLocationToAddress();
+
+        // Add a marker to the location of the problem
+        LatLng reportLocation = new LatLng(latitude, longitude);
+        mMap.addMarker(new MarkerOptions().position(reportLocation).title(address));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(reportLocation, 15));
     }
 
+    @Override
+    public void onClick(View v) {
+        mapFragment.getMapAsync(this);
+    }
+
+    // Simple class for reverse geolocation
     private void convertLocationToAddress(){
         Geocoder geocoder = new Geocoder(this, Locale.getDefault());
         List<Address> locationList;
@@ -81,22 +87,13 @@ public class ProblemLocation extends FragmentActivity implements OnMapReadyCallb
             locationList = geocoder.getFromLocation(latitude, longitude, 1);
             address = locationList.get(0).getAddressLine(0);
         }
-        catch (IOException e) {
+        catch (Exception e) {
             address = "Address not found";
         }
     }
 
-    @Override
-    public void onClick(View v) {
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
-    }
-
 
     class LoadItem extends AsyncTask<String, String, String>{
-
-
-
         @Override
         protected String doInBackground(String... params) {
             // Building Parameters
