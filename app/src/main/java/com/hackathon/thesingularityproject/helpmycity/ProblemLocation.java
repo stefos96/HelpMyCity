@@ -73,7 +73,7 @@ public class ProblemLocation extends FragmentActivity implements OnMapReadyCallb
 
     @Override
     public void onClick(View v) {
-        mapFragment.getMapAsync(this);
+
     }
 
     // Simple class for reverse geolocation
@@ -121,6 +121,7 @@ public class ProblemLocation extends FragmentActivity implements OnMapReadyCallb
             nameTextView.setText(name);
             descriptionTextView.setText(prdescription);
             dateTextView.setText(date);
+            mapFragment.getMapAsync(ProblemLocation.this);
         }
     }
 
