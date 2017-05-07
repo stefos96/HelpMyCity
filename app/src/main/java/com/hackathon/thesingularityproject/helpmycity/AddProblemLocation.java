@@ -70,7 +70,7 @@ public class AddProblemLocation extends FragmentActivity implements OnMapReadyCa
         prdescription = extras.getString("prdescription");
 
         LatLng serres = new LatLng(41.0845196, 23.5443302);
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(serres));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(serres, 15));
     }
 
     // Set location of your problem on the map
