@@ -34,10 +34,13 @@ public class ProblemLocation extends FragmentActivity implements OnMapReadyCallb
     private SupportMapFragment mapFragment;
     private String pridClick;
 
+    private String title;
+
     JSONParser jParser = new JSONParser();
     JSONArray problem = new JSONArray();
     String urlGetItem = "http://www.lekadramas.com/Hackathon/db_getproblem.php";
 
+    private TextView titleTextView;
     private TextView nameTextView;
     private TextView descriptionTextView;
     private TextView dateTextView;
@@ -94,6 +97,7 @@ public class ProblemLocation extends FragmentActivity implements OnMapReadyCallb
                 name = c.getString("name") + " " + c.getString("lastname");
                 prdescription = c.getString("prdescription");
                 date = c.getString("report_date");
+                title = c.getString("title");
                 latitude = Double.parseDouble(c.getString("latitude"));
                 longitude = Double.parseDouble((c.getString("longitude")));
             }
@@ -104,9 +108,12 @@ public class ProblemLocation extends FragmentActivity implements OnMapReadyCallb
 
         @Override
         protected void onPostExecute(String a){
+
+            titleTextView = (TextView) findViewById(R.id.titleTextView);
             nameTextView = (TextView) findViewById(R.id.nameTextView);
             descriptionTextView = (TextView) findViewById(R.id.descriptionTextView);
             dateTextView = (TextView) findViewById(R.id.dateTextView);
+            titleTextView.setText(title);
             nameTextView.setText(name);
             descriptionTextView.setText(prdescription);
             dateTextView.setText(date);
