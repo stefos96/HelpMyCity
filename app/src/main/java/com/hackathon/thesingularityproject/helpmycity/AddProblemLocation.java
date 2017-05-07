@@ -1,6 +1,8 @@
 package com.hackathon.thesingularityproject.helpmycity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -18,6 +20,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class AddProblemLocation extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMapClickListener, View.OnClickListener {
 
@@ -26,6 +29,8 @@ public class AddProblemLocation extends FragmentActivity implements OnMapReadyCa
     String title;
     String prdescription;
     String date;
+
+    String address;
 
     private GoogleMap mMap;
     Button button1;
@@ -90,16 +95,30 @@ public class AddProblemLocation extends FragmentActivity implements OnMapReadyCa
     // Set location of your problem on the map
     @Override
     public void onMapClick(LatLng latLng) {
-        mMap.clear();
-        mMap.addMarker(new MarkerOptions().position(latLng));
         latitude = latLng.latitude;
         longitude = latLng.longitude;
+        convertLocationToAddress();
+        mMap.clear();
+        mMap.addMarker(new MarkerOptions().position(latLng).title(address));
     }
 
     // Submit problem
     @Override
     public void onClick(View v) {
         alertDialog.show();
+    }
+
+    private void convertLocationToAddress(){
+        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+        List<Address> locationList;
+
+        try {
+            locationList = geocoder.getFromLocation(latitude, longitude, 1);
+            address = locationList.get(0).getAddressLine(0);
+        }
+        catch (Exception e) {
+            address = "Address not found";
+        }
     }
 
     private class AddProblem extends AsyncTask<String, String, String>{
