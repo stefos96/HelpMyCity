@@ -34,7 +34,7 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
+            android:value="AIzaSyBo5G-F_XUOJ9pU6cdzxzVO245IBbOr9iQ" />
 
         <activity
             android:name=".ProblemLocation"
