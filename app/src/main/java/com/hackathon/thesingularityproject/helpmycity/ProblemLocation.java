@@ -4,7 +4,10 @@ import android.location.Geocoder;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -21,17 +24,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class ProblemLocation extends FragmentActivity implements OnMapReadyCallback {
+public class ProblemLocation extends FragmentActivity implements OnMapReadyCallback, View.OnClickListener{
+
+    Button button1;
 
     private GoogleMap mMap;
     private String address;
-    private double latitude;
-    private double longitude;
+    private double latitude = 41.0836211;
+    private double longitude = 23.5387843;
 
-    String pridClick;
-    String name;
-    String prdescription;
-    String date;
+    private String name;
+    private String prdescription;
+    private String date;
+
+    private String pridClick;
 
     JSONParser jParser;
     JSONArray problem;
@@ -46,43 +52,26 @@ public class ProblemLocation extends FragmentActivity implements OnMapReadyCallb
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_problem_location);
 
-
         Bundle extras = getIntent().getExtras();
         pridClick = extras.getString("prid");
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+        new LoadItem().execute();
 
-        nameTextView = (TextView) findViewById(R.id.nameTextView);
-        descriptionTextView = (TextView) findViewById(R.id.descriptionTextView);
-        dateTextView = (TextView) findViewById(R.id.dateTextView);
+        button1 = (Button) findViewById(R.id.viewMapButton);
+        button1.setOnClickListener(this);
+
+
+
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        // Building Parameters
-        List<NameValuePair> params = new ArrayList<>();
-        params.add(new BasicNameValuePair("prid", pridClick));
-        // getting JSON string from URL
-        JSONObject json = jParser.makeHttpRequest(urlGetItem, "GET", params);
-        try {
-            problem = json.getJSONArray("problems");
-            JSONObject c = problem.getJSONObject(0);
-            name = c.getString("name") + " " + c.getString("lastname");
-            prdescription = c.getString("prdescription");
-            date = c.getString("report_date");
-            latitude = Double.parseDouble(c.getString("latitude"));
-            longitude = Double.parseDouble((c.getString("longitude")));
-        }
-        catch (JSONException e) {
-            e.printStackTrace();
-        }
-        catch (Exception e){}
+        LatLng serres = new LatLng(latitude, longitude);
         mMap = googleMap;
-        new LoadProblem().execute();
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(serres, 16);
+        mMap.animateCamera(cameraUpdate);
+        mMap.addMarker(new MarkerOptions().position(serres));
+        convertLocationToAddress();
     }
-
-
 
     private void convertLocationToAddress(){
         Geocoder geocoder = new Geocoder(this, Locale.getDefault());
@@ -97,36 +86,50 @@ public class ProblemLocation extends FragmentActivity implements OnMapReadyCallb
         }
     }
 
-    class LoadProblem extends AsyncTask<String, String, String> {
-        /**
-         * Before starting background thread Show Progress Dialog
-         * */
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
+    @Override
+    public void onClick(View v) {
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+    }
 
-        /**
-         * getting All products from url
-         * */
-        protected String doInBackground(String... args) {
+
+    class LoadItem extends AsyncTask<String, String, String>{
+
+
+
+        @Override
+        protected String doInBackground(String... params) {
+            // Building Parameters
+            List<NameValuePair> args = new ArrayList<>();
+            args.add(new BasicNameValuePair("prid", pridClick));
+            // getting JSON string from URL
+            JSONObject json = jParser.makeHttpRequest(urlGetItem, "GET", args);
+            try {
+                problem = json.getJSONArray("problems");
+                JSONObject c = problem.getJSONObject(0);
+                name = c.getString("name") + " " + c.getString("lastname");
+                prdescription = c.getString("prdescription");
+                date = c.getString("report_date");
+                latitude = Double.parseDouble(c.getString("latitude"));
+                longitude = Double.parseDouble((c.getString("longitude")));
+            }
+            catch (JSONException e) {}
+
             return null;
         }
 
-        /*
-         * After completing background task Dismiss the progress dialog
-         */
-        protected void onPostExecute(String file_url) {
-                    convertLocationToAddress();
-                    // Add a marker to the location of the problem
-                    LatLng problemLocation = new LatLng(latitude, longitude);
-                    mMap.addMarker(new MarkerOptions().position(problemLocation).title(address));
-                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(problemLocation, 13));
-                    nameTextView.setText(name);
-                    descriptionTextView.setText(prdescription);
-                    dateTextView.setText(date);
+        @Override
+        protected void onPostExecute(String a){
+            nameTextView = (TextView) findViewById(R.id.nameTextView);
+            descriptionTextView = (TextView) findViewById(R.id.descriptionTextView);
+            dateTextView = (TextView) findViewById(R.id.dateTextView);
+            nameTextView.setText(name);
+            descriptionTextView.setText(prdescription);
+            dateTextView.setText(date);
         }
+
 
     }
 
 }
+
