@@ -9,16 +9,19 @@
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
-        android:layout_width="57dp"
-        android:layout_height="56dp"
+        android:layout_width="match_parent"
+        android:layout_height="66dp"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        app:backgroundTint="@color/wallet_link_text_light"
-        app:srcCompat="@android:drawable/ic_input_add" />
+        app:backgroundTint="@android:color/holo_orange_dark"
+        app:srcCompat="@mipmap/add_button" />
 
     <ListView
         android:id="@android:id/list"
+        style="@style/Widget.AppCompat.ListView.Menu"
         android:layout_width="fill_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:dividerHeight="4px"
+        android:scrollbars="horizontal" />
 
 </android.support.design.widget.CoordinatorLayout>
