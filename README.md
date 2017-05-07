@@ -13,7 +13,8 @@ Once the application has been installed you need to install the database and the
 https://www.apachefriends.org/download.html
 https://bitnami.com/stack/wamp/installer
 
-3. Transfer the php files from the repository "phpFiles.zip" into you htdocs folder and replace the urls in the android app
+3. Transfer the php files from the repository "phpFiles.zip" into you htdocs folder and replace the urls strings in the code classes
+DO NOT TOUCH THE XML OR MANIFEST XML FILES
 
 4. Open your database and select the "IMPORT" option and select the "problems.sql" file from the repository
 
