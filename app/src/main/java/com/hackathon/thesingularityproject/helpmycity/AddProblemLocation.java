@@ -34,6 +34,7 @@ public class AddProblemLocation extends FragmentActivity implements OnMapReadyCa
     // Location
     private double latitude;
     private double longitude;
+    private AlertDialog alertDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +46,16 @@ public class AddProblemLocation extends FragmentActivity implements OnMapReadyCa
         mapFragment.getMapAsync(this);
 
 
+        alertDialog = new AlertDialog.Builder(AddProblemLocation.this).create();
+        alertDialog.setTitle("Successful");
+        alertDialog.setMessage("Problem submitted.");
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        new AddProblem().execute();
+                        dialog.dismiss();
+                    }
+                });
     }
 
 
@@ -88,7 +99,7 @@ public class AddProblemLocation extends FragmentActivity implements OnMapReadyCa
     // Submit problem
     @Override
     public void onClick(View v) {
-        new AddProblem().execute();
+        alertDialog.show();
     }
 
     private class AddProblem extends AsyncTask<String, String, String>{
@@ -104,21 +115,9 @@ public class AddProblemLocation extends FragmentActivity implements OnMapReadyCa
             args.add(new BasicNameValuePair("date", date));
             args.add(new BasicNameValuePair("latitude", Double.toString(latitude)));
             args.add(new BasicNameValuePair("longitude", Double.toString(longitude)));
-
             json = jParser.makeHttpRequest(url3, "GET", args);
-            AlertDialog alertDialog = new AlertDialog.Builder(AddProblemLocation.this).create();
-            alertDialog.setTitle("Successful");
-            alertDialog.setMessage("Problem submitted.");
-            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
-            alertDialog.show();
-            Intent i=new Intent(AddProblemLocation.this, ViewAllProblems.class);
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(i);
+
+            AddProblemLocation.this.finish();
             return null;
         }
     }

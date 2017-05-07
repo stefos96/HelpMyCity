@@ -73,6 +73,7 @@ public class AddNewProblem extends AppCompatActivity implements View.OnClickList
             LocationView.putExtra("title", title1);
             LocationView.putExtra("date", date);
             startActivity(LocationView);
+            this.finish();
         }
     }
 
