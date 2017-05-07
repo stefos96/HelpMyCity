@@ -13,8 +13,7 @@
         android:layout_height="66dp"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        app:backgroundTint="@android:color/holo_orange_dark"
-        app:srcCompat="@mipmap/add_button" />
+        app:srcCompat="@android:drawable/ic_menu_add" />
 
     <ListView
         android:id="@android:id/list"

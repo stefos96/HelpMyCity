@@ -8,7 +8,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 public class AddNewProblem extends AppCompatActivity implements View.OnClickListener {
 
@@ -55,8 +57,13 @@ public class AddNewProblem extends AppCompatActivity implements View.OnClickList
             lastname1 = lastname.getText().toString();
             prdescription1 = prdescription.getText().toString();
             title1 = title.getText().toString();
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            date1 = sdf.format(new Date());
+            Calendar calander = Calendar.getInstance();
+            int cDay = calander.get(Calendar.DAY_OF_MONTH);
+            int cMonth = calander.get(Calendar.MONTH) + 1;
+            int cYear = calander.get(Calendar.YEAR);
+            String date = cDay + "-" + cMonth + "-" + cYear;
+//            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//            date1 = sdf.format(new Date());
 
             Intent LocationView;
             LocationView = new Intent(this, AddProblemLocation.class);
@@ -64,7 +71,7 @@ public class AddNewProblem extends AppCompatActivity implements View.OnClickList
             LocationView.putExtra("lastname", lastname1);
             LocationView.putExtra("prdescription", prdescription1);
             LocationView.putExtra("title", title1);
-            LocationView.putExtra("date", date1);
+            LocationView.putExtra("date", date);
             startActivity(LocationView);
         }
     }
