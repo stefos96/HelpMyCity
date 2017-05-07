@@ -1,5 +1,6 @@
 package com.hackathon.thesingularityproject.helpmycity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -88,16 +89,6 @@ public class AddProblemLocation extends FragmentActivity implements OnMapReadyCa
     @Override
     public void onClick(View v) {
         new AddProblem().execute();
-        AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-        alertDialog.setTitle("Successful");
-        alertDialog.setMessage("Problem submitted.");
-        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-        alertDialog.show();
     }
 
     private class AddProblem extends AsyncTask<String, String, String>{
@@ -115,7 +106,19 @@ public class AddProblemLocation extends FragmentActivity implements OnMapReadyCa
             args.add(new BasicNameValuePair("longitude", Double.toString(longitude)));
 
             json = jParser.makeHttpRequest(url3, "GET", args);
-            finish();
+            AlertDialog alertDialog = new AlertDialog.Builder(AddProblemLocation.this).create();
+            alertDialog.setTitle("Successful");
+            alertDialog.setMessage("Problem submitted.");
+            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+            alertDialog.show();
+            Intent i=new Intent(AddProblemLocation.this, ViewAllProblems.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
             return null;
         }
     }
