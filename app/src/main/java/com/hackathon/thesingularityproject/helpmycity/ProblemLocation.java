@@ -4,8 +4,6 @@ import android.location.Geocoder;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -22,9 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class ProblemLocation extends FragmentActivity implements OnMapReadyCallback, View.OnClickListener{
-
-    Button button1;
+public class ProblemLocation extends FragmentActivity implements OnMapReadyCallback{
 
     private GoogleMap mMap;
     private String address;
@@ -50,8 +46,6 @@ public class ProblemLocation extends FragmentActivity implements OnMapReadyCallb
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_problem_location);
-        button1 = (Button) findViewById(R.id.button2);
-        button1.setOnClickListener(this);
         mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         Bundle extras = getIntent().getExtras();
         pridClick = extras.getString("prid");
@@ -69,11 +63,6 @@ public class ProblemLocation extends FragmentActivity implements OnMapReadyCallb
         LatLng reportLocation = new LatLng(latitude, longitude);
         mMap.addMarker(new MarkerOptions().position(reportLocation).title(address));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(reportLocation, 15));
-    }
-
-    @Override
-    public void onClick(View v) {
-
     }
 
     // Simple class for reverse geolocation

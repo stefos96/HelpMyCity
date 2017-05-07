@@ -17,10 +17,11 @@
 
     <ListView
         android:id="@android:id/list"
-        style="@style/Widget.AppCompat.ListView.Menu"
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
         android:dividerHeight="4px"
+        android:footerDividersEnabled="false"
+        android:headerDividersEnabled="false"
         android:scrollbars="horizontal" />
 
 </android.support.design.widget.CoordinatorLayout>

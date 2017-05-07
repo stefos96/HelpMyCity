@@ -1,7 +1,9 @@
 package com.hackathon.thesingularityproject.helpmycity;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.Button;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -86,6 +88,16 @@ public class AddProblemLocation extends FragmentActivity implements OnMapReadyCa
     @Override
     public void onClick(View v) {
         new AddProblem().execute();
+        AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+        alertDialog.setTitle("Successful");
+        alertDialog.setMessage("Problem submitted.");
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        alertDialog.show();
     }
 
     private class AddProblem extends AsyncTask<String, String, String>{
