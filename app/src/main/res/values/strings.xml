@@ -3,4 +3,7 @@
     <string name="title_activity_view_all_problems">ViewAllProblems</string>
     <string name="title_activity_problem_location">Map</string>
     <string name="title_activity_add_problem_location">Map</string>
+    <string name="date_added">Date added:</string>
+    <string name="description">Description:</string>
+    <string name="name">Name:</string>
 </resources>

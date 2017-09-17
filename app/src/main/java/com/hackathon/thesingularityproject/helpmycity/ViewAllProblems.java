@@ -5,12 +5,18 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.MapView;
+
 import org.apache.http.NameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -20,15 +26,16 @@ import java.util.HashMap;
 import java.util.List;
 
 public class ViewAllProblems extends ListActivity implements View.OnClickListener{
-
     private ProgressDialog pDialog1;
     // Creating JSON Parser object
     JSONParser jParser = new JSONParser();
-    ArrayList<HashMap<String, String>> problemsList;
-    // url to get all problems list
-    private static String url = "http://lekadramas.com/hackathon/db_getallproblems.php";
+    ArrayList<HashMap<String, String>> problemsList = new ArrayList<>();
+    // URL to get all problems list
+    private static String URL = "http://lekadramas.com/hackathon/db_getallproblems.php";
     // problems JSONArray
     JSONArray problems = null;
+
+    SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,16 +45,13 @@ public class ViewAllProblems extends ListActivity implements View.OnClickListene
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(this);
 
-        // Hashmap for ListView
-        problemsList = new ArrayList<>();
-
         // Loading problems in Background Thread
         new LoadAllProblems().execute();
 
         // Get listview
         ListView lv = getListView();
 
-        // on seleting single problem
+        // seleting single problem
         // launching Edit Problem Screen
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -64,6 +68,18 @@ public class ViewAllProblems extends ListActivity implements View.OnClickListene
                 startActivityForResult(in, 100);
             }
         });
+
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
+        swipeRefreshLayout.setOnRefreshListener(
+                new SwipeRefreshLayout.OnRefreshListener() {
+                    @Override
+                    public void onRefresh() {
+                        new LoadAllProblems().execute();
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                }
+        );
+
     }
         @Override
         public void onClick(View v) {
@@ -87,7 +103,7 @@ public class ViewAllProblems extends ListActivity implements View.OnClickListene
             // Building Parameters
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             // getting JSON string from URL
-            JSONObject json = jParser.makeHttpRequest(url, "GET", params);
+            JSONObject json = jParser.makeHttpRequest(URL, "GET", params);
             try {
                     problems = json.getJSONArray("problems");
 
@@ -98,7 +114,7 @@ public class ViewAllProblems extends ListActivity implements View.OnClickListene
                         // Storing each json item in variable
                         String title = " " + c.getString("title");
                         String prid = c.getString("prid");
-                        // creating new HashMap
+                        // creating new Hash
                         HashMap<String, String> map = new HashMap<String, String>();
                         // adding each child node to HashMap key => value
                         map.put("title", title);

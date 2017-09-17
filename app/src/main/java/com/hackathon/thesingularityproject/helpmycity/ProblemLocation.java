@@ -1,15 +1,21 @@
 package com.hackathon.thesingularityproject.helpmycity;
+import android.content.Intent;
+import android.content.res.Resources;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -50,6 +56,7 @@ public class ProblemLocation extends FragmentActivity implements OnMapReadyCallb
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_problem_location);
         mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+
         Bundle extras = getIntent().getExtras();
         pridClick = extras.getString("prid");
         new LoadItem().execute();
@@ -58,9 +65,29 @@ public class ProblemLocation extends FragmentActivity implements OnMapReadyCallb
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        try {
+            // Customise the styling of the base map using a JSON object defined
+            // in a raw resource file.
+            boolean success = mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.mapstyle_night));
 
-        // Convert location to real address
-        convertLocationToAddress();
+            if (!success) {
+                Log.e("MapsActivityRaw", "Style parsing failed.");
+            }
+        }
+        catch (Resources.NotFoundException e) {
+            Log.e("MapsActivityRaw", "Can't find style.", e);
+        }
+
+        new AsyncTask<String, String, String>() {
+            @Override
+            protected String doInBackground(String... strings) {
+                // Convert location to real address
+                convertLocationToAddress();
+                return null;
+            }
+        };
+
+//        convertLocationToAddress();
 
         // Add a marker to the location of the problem
         LatLng reportLocation = new LatLng(latitude, longitude);
@@ -81,7 +108,6 @@ public class ProblemLocation extends FragmentActivity implements OnMapReadyCallb
             address = "Address not found";
         }
     }
-
 
     class LoadItem extends AsyncTask<String, String, String>{
         @Override
