@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/grad_purple_cyan"
+    android:background="@drawable/dark_blue"
     tools:context="com.hackathon.thesingularityproject.helpmycity.MainActivity">
 
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
@@ -11,50 +11,52 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_width="390dp"
-        android:layout_height="449dp"
-        android:layout_marginBottom="0dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginRight="0dp"
-        android:layout_marginTop="0dp"
-        map:layout_constraintBottom_toTopOf="@+id/button1"
+        android:layout_width="0dp"
+        android:layout_height="426dp"
         map:layout_constraintLeft_toLeftOf="parent"
         map:layout_constraintRight_toRightOf="parent"
+        tools:context="com.hackathon.thesingularityproject.helpmycity.AddProblemLocation"
         map:layout_constraintTop_toTopOf="parent"
-        map:layout_constraintVertical_bias="0.781"
-        tools:context="com.hackathon.thesingularityproject.helpmycity.AddProblemLocation" />
+        android:layout_marginTop="65dp"
+        map:layout_constraintHorizontal_bias="0.0" />
 
     <Button
         android:id="@+id/button1"
         android:layout_width="128dp"
-        android:layout_height="46dp"
-        android:layout_marginBottom="8dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="10dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/white_round"
-        android:text="Submit"
-        android:textColor="@color/my_orangy"
+        android:text="@string/submit"
+        android:textColor="@color/gold_3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.988"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
 
     <TextView
         android:id="@+id/textView3"
-        android:layout_width="191dp"
+        android:layout_width="262dp"
         android:layout_height="38dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginTop="12dp"
-        android:text="Add your location"
+        android:layout_marginTop="16dp"
+        android:text="@string/add_your_location"
         android:textAllCaps="false"
-        android:textColor="@android:color/white"
-        android:textSize="24sp"
-        app:layout_constraintHorizontal_bias="0.045"
+        android:textColor="@color/gold"
+        android:textSize="26sp"
+        app:layout_constraintHorizontal_bias="0.066"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/map" />
 
 </android.support.constraint.ConstraintLayout>

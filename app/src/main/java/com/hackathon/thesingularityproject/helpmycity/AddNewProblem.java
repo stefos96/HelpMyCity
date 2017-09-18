@@ -26,6 +26,7 @@ public class AddNewProblem extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_add_new_problem);
 
         button3 = (Button) findViewById(R.id.button3);
+
         name = (EditText)findViewById(R.id.editText);
         lastname = (EditText)findViewById(R.id.editText5);
         title = (EditText)findViewById(R.id.editText7);

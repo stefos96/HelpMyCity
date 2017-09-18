@@ -6,4 +6,13 @@
     <string name="date_added">Date added:</string>
     <string name="description">Description:</string>
     <string name="name">Name:</string>
+    <string name="description_2">Description</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="location">Location</string>
+    <string name="report_new_problem">Report new problem</string>
+    <string name="title">Title</string>
+    <string name="add_your_location">Add your location</string>
+    <string name="submit">Submit</string>
+    <string name="view_problems">View Problems</string>
 </resources>

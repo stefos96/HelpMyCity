@@ -10,4 +10,14 @@
     <color name="my_skin_color">#e4b16b</color>
     <color name="white_transp_85">#c5ffffff</color>
     <color name="transparent">#00ffffff</color>
+    <color name="gold">#cf9161</color>
+    <color name="gold_2">#ca8f60</color>
+    <color name="color_3">#9e775b</color>
+    <color name="gold_3">#9e775b</color>
+    <color name="brown_dark">#584a40</color>
+    <color name="dark_blue_2">#212c3a</color>
+    <color name="dark_blue_3">#1b242f</color>
+    <color name="my_gray">#7f7f7f</color>
+    <color name="my_dark_gray">#2f2f2f</color>
+    <color name="my_dark_gray_bluish">#0b0919</color>
 </resources>

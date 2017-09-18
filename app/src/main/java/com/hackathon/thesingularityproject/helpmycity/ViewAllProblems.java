@@ -99,30 +99,36 @@ public class ViewAllProblems extends ListActivity implements View.OnClickListene
             pDialog1.setCancelable(false);
             pDialog1.show();
         }
+
         protected String doInBackground(String... args) {
             // Building Parameters
             List<NameValuePair> params = new ArrayList<NameValuePair>();
+
+            if (!problemsList.isEmpty())
+                problemsList.clear();
+
             // getting JSON string from URL
             JSONObject json = jParser.makeHttpRequest(URL, "GET", params);
             try {
-                    problems = json.getJSONArray("problems");
+                problems = json.getJSONArray("problems");
 
-                    // looping through All Problems
-                    for (int i = 0; i < problems.length(); i++) {
-                        JSONObject c = problems.getJSONObject(i);
+                // looping through All Problems
+                for (int i = 0; i < problems.length(); i++) {
+                    JSONObject c = problems.getJSONObject(i);
 
-                        // Storing each json item in variable
-                        String title = " " + c.getString("title");
-                        String prid = c.getString("prid");
-                        // creating new Hash
-                        HashMap<String, String> map = new HashMap<String, String>();
-                        // adding each child node to HashMap key => value
-                        map.put("title", title);
-                        map.put("prid", prid);
-                        // adding HashList to ArrayList
-                        problemsList.add(map);
-                    }
-            } catch (JSONException e) {
+                    // Storing each json item in variable
+                    String title = " " + c.getString("title");
+                    String prid = c.getString("prid");
+                    // creating new Hash
+                    HashMap<String, String> map = new HashMap<String, String>();
+                    // adding each child node to HashMap key => value
+                    map.put("title", title);
+                    map.put("prid", prid);
+                    // adding HashList to ArrayList
+                    problemsList.add(map);
+                }
+            }
+            catch (JSONException e) {
                 e.printStackTrace();
             }
 

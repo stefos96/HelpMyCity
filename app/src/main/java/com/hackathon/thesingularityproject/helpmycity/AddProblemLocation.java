@@ -1,6 +1,8 @@
 package com.hackathon.thesingularityproject.helpmycity;
 import android.content.DialogInterface;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.AsyncTask;
@@ -14,6 +16,8 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -115,7 +119,17 @@ public class AddProblemLocation extends FragmentActivity implements OnMapReadyCa
         longitude = latLng.longitude;
         convertLocationToAddress();
         mMap.clear();
-        mMap.addMarker(new MarkerOptions().position(latLng).title(address));
+
+        BitmapDrawable bitmapdraw =(BitmapDrawable)getResources().getDrawable(R.drawable.map_marker);
+        Bitmap b = bitmapdraw.getBitmap();
+        Bitmap smallMarker = Bitmap.createScaledBitmap(b, 128, 128, false);
+
+        MarkerOptions marker = new MarkerOptions()
+                .position(latLng)
+                .title(address)
+                .icon(BitmapDescriptorFactory.fromBitmap(smallMarker));
+
+        mMap.addMarker(marker);
     }
 
     // Submit problem
