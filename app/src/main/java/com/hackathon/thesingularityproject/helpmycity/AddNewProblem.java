@@ -17,7 +17,6 @@ public class AddNewProblem extends AppCompatActivity implements View.OnClickList
     Button button3;
     EditText name, lastname, title, prdescription;
     String name1, lastname1, title1, prdescription1;
-    String date1;
 
 
     @Override

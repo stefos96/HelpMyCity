@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#3f51b5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimaryDark">#242f3e</color>
     <color name="colorAccent">#FF4081</color>
     <color name="Mycolor">#001739</color>
     <color name="white_transparent_65">#89adadad</color>
@@ -14,7 +14,7 @@
     <color name="gold_2">#ca8f60</color>
     <color name="color_3">#9e775b</color>
     <color name="gold_3">#9e775b</color>
-    <color name="brown_dark">#584a40</color>
+    <color name="brown_dark">#716a65</color>
     <color name="dark_blue_2">#212c3a</color>
     <color name="dark_blue_3">#1b242f</color>
     <color name="my_gray">#7f7f7f</color>

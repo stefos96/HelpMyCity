@@ -97,7 +97,7 @@ public class ProblemLocation extends FragmentActivity implements OnMapReadyCallb
 
         BitmapDrawable bitmapdraw =(BitmapDrawable)getResources().getDrawable(R.drawable.map_marker);
         Bitmap b = bitmapdraw.getBitmap();
-        Bitmap smallMarker = Bitmap.createScaledBitmap(b, 128, 128, false);
+        Bitmap smallMarker = Bitmap.createScaledBitmap(b, 90, 90, false);
 
         MarkerOptions marker = new MarkerOptions()
                 .position(reportLocation)

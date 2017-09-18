@@ -8,7 +8,7 @@
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="54dp"
-        android:textColor="@color/gold_3"
+        android:textColor="@color/brown_dark"
         android:textSize="22sp"
         android:textStyle="bold" />
 
